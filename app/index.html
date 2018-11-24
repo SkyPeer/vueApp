@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <style>
+        #form1{
+            padding: 5px;
+            border: dotted 3px;
+        }
+        #form1.class1{
+            border-color: indigo;
+        }
+        #form1.class2{
+            border-color: red;
+        }
+
+        #counter{
+            padding: 10px;
+            border: dashed 5px gray;
+            margin: 15px 0;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+
+    <span @click=clickFunc :style=style1>{{textText}}</span><br/>
+
+
+    <span v-bind:title="getDate">{{getDate}}</span><br />
+    <span :title="getDate">Время в title</span>
+    <hr>
+
+    <div id="counter">
+        <h4>COUNTER: {{count}}</h4>
+        <a href="#" @click="countFunc('increase')"> Увеличить count </a>
+        <a href="#" @click="countFunc('reduce')"> Уменьшить count </a>
+        <a href="#" @click="countFunc()"> Обнулить count </a><br /><br />
+
+        <button @click="countFunc('increase')"> Увеличить count </button>
+        <button @click="countFunc('reduce')"> Обнулить count </button>
+        <button @click="countFunc()"> Обнулить count </button>
+
+    </div>
+
+
+    <div
+
+    <form id="form1" v-bind:class=" typeJob == 'list' ? 'class1' : 'class2' ">
+        <h3>RadiobuttonsForm</h3>
+            <label for="radio1">List</label>
+                <input type="radio" id="radio1" name="type" v-model="typeJob" value="list" :checked="typeJob == 'list'"><br/>
+
+            <label for="radio2">Search</label>
+                <input type="radio" id="radio2" name="type" v-model="typeJob" value="search" :checked="typeJob == 'search'"><br />
+
+        <span>Вы выбрали: {{typeJob}}</span>
+    </form>
+
+
+
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
