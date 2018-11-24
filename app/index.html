@@ -20,6 +20,14 @@
             margin: 15px 0;
 
         }
+
+        #inputText{
+            padding: 10px;
+            border: dashed 5px #570057;
+            margin: 15px 0;
+
+        }
+
     </style>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -43,19 +51,30 @@
         <button @click="countFunc('increase')"> Увеличить count </button>
         <button @click="countFunc('reduce')"> Обнулить count </button>
         <button @click="countFunc()"> Обнулить count </button>
+    </div>
+
+
+    <div id="inputText">
+        <input type="text" placeholder="Введите текст" v-model="inputText">
+        <span>Вы ввели текст {{inputText}} </span>
+        <button @click="inputTextButtonClick">Нажми</button>
 
     </div>
 
 
-    <div
+
+
 
     <form id="form1" v-bind:class=" typeJob == 'list' ? 'class1' : 'class2' ">
         <h3>RadiobuttonsForm</h3>
-            <label for="radio1">List</label>
+            <div><label for="radio1">List</label>
                 <input type="radio" id="radio1" name="type" v-model="typeJob" value="list" :checked="typeJob == 'list'"><br/>
 
-            <label for="radio2">Search</label>
+                <label for="radio2">Search</label>
                 <input type="radio" id="radio2" name="type" v-model="typeJob" value="search" :checked="typeJob == 'search'"><br />
+            </div>
+
+
 
         <span>Вы выбрали: {{typeJob}}</span>
     </form>
