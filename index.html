@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <style>
         #form1{
@@ -12,6 +13,12 @@
         }
         #form1.class2{
             border-color: red;
+        }
+        #form1 .form1-input{
+            margin: 10px;
+            padding: 15px;
+            border: dotted 1px grey;
+            border-radius: 5px;
         }
 
         #counter{
@@ -26,6 +33,21 @@
             border: dashed 5px #570057;
             margin: 15px 0;
 
+        }
+        #divForArray{
+            padding: 10px;
+            border: dashed 5px #004f00;
+            margin: 15px 0;
+        }
+        .arrayItem{
+            padding: 5px;
+            margin: 5px;
+            border: dotted 1px #8e8e8e;
+        }
+        .arrayItem div {
+            color: yellowgreen;
+            padding-left: 5px;
+            margin: 5px 0;
         }
 
     </style>
@@ -64,7 +86,6 @@
 
 
 
-
     <form id="form1" v-bind:class=" typeJob == 'list' ? 'class1' : 'class2' ">
         <h3>RadiobuttonsForm</h3>
             <div><label for="radio1">List</label>
@@ -74,10 +95,38 @@
                 <input type="radio" id="radio2" name="type" v-model="typeJob" value="search" :checked="typeJob == 'search'"><br />
             </div>
 
+        <div v-if="typeJob == 'search'" class="form1-input">
+            <input type="text" name="search" v-model="search" placeholder="Введите искомое значение" />
+            <label v-if="typeJob == 'search'">Вы ввели: {{search}}</label>
+            <label v-if="search.length"> -- кол. символов {{search.length}} и это {{!isNaN(parseInt(search)) ? 'число' : 'строка'}}</label>
 
+
+        </div>
 
         <span>Вы выбрали: {{typeJob}}</span>
+
     </form>
+
+    <div id="divForArray">
+        <h3>Array!</h3>
+        <button @click="consoleArray">TEST</button>
+
+        <div class="arrayItem" v-for="item in array">{{item.name}}  {{' email: ' + item.email}}
+            <button @click="consoleCheckedItem(item.id)">{{openId == item.id ? 'Закрыть' : 'Открыть'}}</button>
+            <div v-if="openId == item.id">
+                {{item.balance}}
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+    </div>
 
 
 
