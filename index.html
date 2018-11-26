@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>vueApp</title>
+
     <style>
+        #hello {
+            font-family: Verdana;
+            color: navy
+        }
+
         #form1{
             padding: 5px;
             border: dotted 3px;
@@ -14,6 +20,7 @@
         #form1.class2{
             border-color: red;
         }
+
         #form1 .form1-input{
             margin: 10px;
             padding: 15px;
@@ -50,80 +57,13 @@
             margin: 5px 0;
         }
 
+
     </style>
-    <meta charset="UTF-8">
-    <title>Title</title>
 </head>
 <body>
-<div id="app">
 
-    <span @click=clickFunc :style=style1>{{textText}}</span><br/>
-
-
-    <span v-bind:title="getDate">{{getDate}}</span><br />
-    <span :title="getDate">Время в title</span>
-    <hr>
-
-    <div id="counter">
-        <h4>COUNTER: {{count}}</h4>
-        <a href="#" @click="countFunc('increase')"> Увеличить count </a>
-        <a href="#" @click="countFunc('reduce')"> Уменьшить count </a>
-        <a href="#" @click="countFunc()"> Обнулить count </a><br /><br />
-
-        <button @click="countFunc('increase')"> Увеличить count </button>
-        <button @click="countFunc('reduce')"> Обнулить count </button>
-        <button @click="countFunc()"> Обнулить count </button>
-    </div>
-
-
-    <div id="inputText">
-        <input type="text" placeholder="Введите текст" v-model="inputText">
-        <span>Вы ввели текст {{inputText}} </span>
-        <button @click="inputTextButtonClick">Нажми</button>
-
-    </div>
-
-
-
-
-    <form id="form1" v-bind:class=" typeJob == 'list' ? 'class1' : 'class2' ">
-        <h3>RadiobuttonsForm</h3>
-            <div><label for="radio1">List</label>
-                <input type="radio" id="radio1" name="type" v-model="typeJob" value="list" :checked="typeJob == 'list'"><br/>
-
-                <label for="radio2">Search</label>
-                <input type="radio" id="radio2" name="type" v-model="typeJob" value="search" :checked="typeJob == 'search'"><br />
-            </div>
-
-        <div v-if="typeJob == 'search'" class="form1-input">
-            <input type="text" name="search" v-model="search" placeholder="Введите искомое значение" />
-            <label v-if="typeJob == 'search'">Вы ввели: {{search}}</label>
-            <label v-if="search.length"> -- кол. символов {{search.length}} и это {{!isNaN(parseInt(search)) ? 'число' : 'строка'}}</label>
-
-
-        </div>
-
-        <span>Вы выбрали: {{typeJob}}</span>
-
-    </form>
-
-    <div id="divForArray">
-        <h3>Array!</h3>
-        <button @click="consoleArray">TEST</button>
-
-        <div class="arrayItem" v-for="item in array">{{item.name}}  {{' email: ' + item.email}}
-            <button @click="consoleCheckedItem(item.id)">{{openId == item.id ? 'Закрыть' : 'Открыть'}}</button>
-            <div v-if="openId == item.id">
-                {{item.balance}}
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
+<div id="root"></div>
 
 <script src="/build/scripts.js"></script>
-
 </body>
 </html>
