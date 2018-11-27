@@ -2,10 +2,11 @@
     <div class="main">
         <span>{{title}}</span>
         <div class="counters">
-            <counter :defaultCount='0' :text1="'counter1'"></counter>
+            <counter  v-if="this.open" :defaultCount='0' :text1="'counter1'"></counter>
             <counter :defaultCount='5' :text1="'counter2'"></counter>
             <counter :defaultCount='10' :text1="'counter3'"></counter>
-            <button>Open Please</button>
+            <button v-on:click="open ? open = false : open = true">Open Please</button>
+            
         </div>
     </div>
 </template>
@@ -16,13 +17,21 @@
 
     export default {
         name: "App",
+
         components: {Counter},
+
         data: function () {
             return{
                 text1: 'haaaa',
-                title: 'this AppMain'
+                title: 'this AppMain',
+                open: false
+            }
+        },
+        methods:{
+            openF(){
+                this.open = true
             }
         }
 
-        }
+    }
 </script>
