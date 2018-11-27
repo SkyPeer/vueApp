@@ -1,5 +1,6 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
+import {userProvider} from "./providers";
 
 Vue.use(Vuex);
     let store = new Vuex.Store({
@@ -22,6 +23,8 @@ Vue.use(Vuex);
         }*/
             state: {
                 notes: [],
+                users: [],
+                total: '',
                 stateCounter: 777,
             },
             actions: {
@@ -31,7 +34,13 @@ Vue.use(Vuex);
                 },
                 increaseCounter({commit}){
                   commit('INCREASE_COUNTER')
-                }
+                },
+                async getUsers({commit, state}, params) {
+                    let users = await userProvider.fetch(params);
+                    commit('CHANGE_USERS', users);
+                },
+
+
             },
             mutations: {
                 ADD_NOTE(state, note) {
@@ -39,6 +48,9 @@ Vue.use(Vuex);
                 },
                 INCREASE_COUNTER(state){
                   state.stateCounter ++
+                },
+                CHANGE_USERS(state, users) {
+                    state.users = users;
                 },
             },
             getters: {
