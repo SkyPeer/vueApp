@@ -1,6 +1,6 @@
 <script>
     export default {
-        props: ['text1','defaultCount'],
+        props: ['text1','defaultCount', 'stateCounter'],
         data: function () {
             return{
                 test: {
@@ -31,7 +31,8 @@
         <hr />
         <h5></h5>
         <span>{{'t= '+ test.t + ' a =' + test.a}} + text1 = {{text1}} </span><br/><br/>
-        <span>Count = {{count}} <button @click="countF">Count {{count}}</button></span>
+        <span>Count = {{count}} <button @click="countF">Count {{count}}</button></span><br />
+        <div>StateCounter = {{stateCounter}}</div>
         <hr />
     </div>
 </template>
