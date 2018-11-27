@@ -11,30 +11,40 @@ const express = require('express'),
 app.use(helmet());
 app.use(compression());
 
-let jsonArray = fs.readFileSync("default.json");
+let jsonArray = require("./default.json");
 //console.log(JSON.parse(jsonArray)[1]);
 
 
-app.post('/api/users/select', bodyParser.json(), function(req, res, next){
-    //console.log('SearchbyTicketNumber req.body', req.body.params.page);
-    res.json(getRequest(req.body.params.page))
+app.post('/api/users/select', bodyParser.json(), function (req, res, next) {
+    let {page, text} = req.body.params;
+    console.log('SearchbyTicketNumber req.body', req.body);
+    res.json(getRequest(page, text))
     //res.sendFile('default.json', {root: __dirname});
     //res.header('Access-Control-Allow-Origin', '*');
 
 });
 
-function getRequest (page){
-    let array = JSON.parse(jsonArray);
-    let req = [];
-    let first = page !== 1 ? ((page-1)*10) : 0;
-    let last = page * 10;
+function getRequest(page, text) {
+    let filtered ;
+    if (text) {
+        text = text.toLowerCase();
+        filtered = jsonArray.filter(item => {
 
-    for(let i=first; i < last; i++){
-        req.push(array[i])
+            return !item.email.toLowerCase().indexOf(text) || !item.name.toLowerCase().indexOf(text)
+        })
     }
-    console.log('req.length = ', req.length, 'first:', first, 'last:',last);
-    return req
+    else{
+        filtered = jsonArray;
+    }
+    let begin = (page - 1) * 10;
+    let end = begin + 10;
+    return filtered.slice(begin, end);
 }
+
+app.get('/api/users/total', function (req, res, next) {
+    res.json({total: jsonArray.length});
+});
+
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/build', express.static(path.join(__dirname, 'build')));
