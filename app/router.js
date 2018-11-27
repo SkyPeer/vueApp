@@ -1,4 +1,6 @@
 import VueRouter from "vue-router";
+import MainPage from './main';
+import TablePage from './table';
 import Vue from 'vue';
 
 Vue.use(VueRouter);
