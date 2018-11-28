@@ -11,13 +11,13 @@ const express = require('express'),
 app.use(helmet());
 app.use(compression());
 
-let jsonArray = require("./default.json");
+let jsonArray = require("./bigData.json");
 //console.log(JSON.parse(jsonArray)[1]);
 
 
 app.post('/api/users/select', bodyParser.json(), function (req, res, next) {
     let {page, text} = req.body.params;
-    console.log('SearchbyTicketNumber req.body', req.body);
+    //console.log('SearchbyTicketNumber req.body', req.body);
     res.json(getRequest(page, text))
     //res.sendFile('default.json', {root: __dirname});
     //res.header('Access-Control-Allow-Origin', '*');
@@ -27,24 +27,22 @@ let filtered = [] ;
 
 function getRequest(page, text) {
 
-
     if (text) {
         /*text = text.toLowerCase();
         filtered = jsonArray.filter(item => {
-
             return !item.email.toLowerCase().indexOf(text) || !item.name.toLowerCase().indexOf(text)
         })*/
         let pattern = new RegExp(text, 'i');
         filtered = jsonArray.filter(item => {
-            return item.name.match(pattern) || item.email.match(pattern)
+            return (item.id).toString().match(pattern) || item.name.match(pattern) || item.email.match(pattern) || item.language.match(pattern) || (item.payment).toString().match(pattern)
         })
 
     }
     else{
         filtered = jsonArray;
     }
-    let begin = (page - 1) * 10;
-    let end = begin + 10;
+    let begin = (page - 1) * 100;
+    let end = begin + 100;
     return filtered.slice(begin, end);
 }
 
@@ -61,5 +59,5 @@ app.use('/', (req, res, next) => {
 });
 
 server.listen(3000, function () {
-    console.log(`redApp Start http://localhost:3000`);
+    console.log(`vueApp Start http://localhost:3000`);
 });
