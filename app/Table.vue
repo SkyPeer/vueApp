@@ -1,11 +1,22 @@
 <template>
     <div>
        <input placeholder="Поиск..." v-model="search"/>
-        <label>{{search}}</label>
-        <table class="userTable">
-            <tbody class="userTable">
+        <label v-if="search.length > 0">Найдено: {{totalArray}} строк</label>
+        <table class="paymentTable">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <th>Имя: </th>
+                <th>Email: </th>
+                <th>Платеж: </th>
+                <th>Язый прог.</th>
+            </tr>
             <tr class="userTable" v-for="user in users">
-                {{'id: '+ user.id + ' name: ' + user.name + ' e-mail: ' + user.email }}
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>$ {{user.payment}}</td>
+                <td>{{user.language}}</td>
             </tr>
             </tbody>
         </table>
@@ -24,7 +35,8 @@
         data(){
             return{
                 currentPage: 1,
-                search :''
+                search :'',
+                total : '',
             }
         },
 
@@ -36,9 +48,9 @@
             }
         },
         created() {
-            let {query} = this.$route;
-            this.$store.dispatch('getUsers', {page: query.page || 1});
-            this.currentPage = query.page || 1;
+            //let {query} = this.$route;
+            this.$store.dispatch('getUsers', {page: /*query.page ||*/ 1});
+            this.currentPage = /*query.page ||*/ 1;
             this.$store.dispatch('getTotal');
         },
 
@@ -47,7 +59,8 @@
                 this.search.length !== 0 ?
                     this.$store.dispatch('getUsers',{page: 1, text: this.search}) : this.$store.dispatch('getUsers', {page: 1});
 
-                this.$store.dispatch('getTotal');
+                this.total = this.$store.dispatch('getTotal');
+
             }
 
         },

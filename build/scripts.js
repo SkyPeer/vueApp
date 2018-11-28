@@ -495,13 +495,13 @@ __webpack_require__.r(__webpack_exports__);
 let userProvider = {
     async fetch(params) {
        //  params.text='y';
-        let response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users/select', {params}); /*let response = await axios.get*/
+        let response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users/select', {params});
         return response.data;
     },
-    async search(params) {
-        let response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users/search', {params});
+    /*async search(params) {
+        let response = await axios.post('/api/users/search', {params});
         return response.data;
-    },
+    },*/
     async total() {
         let response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users/total');
         return response.data;
@@ -2965,8 +2965,8 @@ __webpack_require__.r(__webpack_exports__);
     data() {
         return {
             currentPage: this.current || 1,
-            pageSize: 10,
-            //visiblePagesCount: 15
+            pageSize: 100,
+
         };
     },
     watch: {
@@ -2975,7 +2975,7 @@ __webpack_require__.r(__webpack_exports__);
         }
     },
     computed: {
-        pagesCount() {//сколько всего страниц возможно
+        pagesCount() {
             console.log('pager this.total = ', this.total);
             let count = Math.ceil(this.total / this.pageSize);
             console.log('count = ', count);
@@ -3151,6 +3151,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3162,7 +3173,8 @@ __webpack_require__.r(__webpack_exports__);
     data(){
         return{
             currentPage: 1,
-            search :''
+            search :'',
+            total : '',
         }
     },
 
@@ -3174,9 +3186,9 @@ __webpack_require__.r(__webpack_exports__);
         }
     },
     created() {
-        let {query} = this.$route;
-        this.$store.dispatch('getUsers', {page: query.page || 1});
-        this.currentPage = query.page || 1;
+        //let {query} = this.$route;
+        this.$store.dispatch('getUsers', {page: /*query.page ||*/ 1});
+        this.currentPage = /*query.page ||*/ 1;
         this.$store.dispatch('getTotal');
     },
 
@@ -3185,7 +3197,8 @@ __webpack_require__.r(__webpack_exports__);
             this.search.length !== 0 ?
                 this.$store.dispatch('getUsers',{page: 1, text: this.search}) : this.$store.dispatch('getUsers', {page: 1});
 
-            this.$store.dispatch('getTotal');
+            this.total = this.$store.dispatch('getTotal');
+
         }
 
     },
@@ -3414,28 +3427,31 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("label", [_vm._v(_vm._s(_vm.search))]),
+      _vm.search.length > 0
+        ? _c("label", [_vm._v("Найдено: " + _vm._s(_vm.totalArray) + " строк")])
+        : _vm._e(),
       _vm._v(" "),
-      _c("table", { staticClass: "userTable" }, [
+      _c("table", { staticClass: "paymentTable" }, [
         _c(
           "tbody",
-          { staticClass: "userTable" },
-          _vm._l(_vm.users, function(user) {
-            return _c("tr", { staticClass: "userTable" }, [
-              _vm._v(
-                "\n            " +
-                  _vm._s(
-                    "id: " +
-                      user.id +
-                      " name: " +
-                      user.name +
-                      " e-mail: " +
-                      user.email
-                  ) +
-                  "\n        "
-              )
-            ])
-          })
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.users, function(user) {
+              return _c("tr", { staticClass: "userTable" }, [
+                _c("td", [_vm._v(_vm._s(user.id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(user.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(user.email))]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$ " + _vm._s(user.payment))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(user.language))])
+              ])
+            })
+          ],
+          2
         )
       ]),
       _vm._v(" "),
@@ -3447,7 +3463,24 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("Id")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Имя: ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Email: ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Платеж: ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Язый прог.")])
+    ])
+  }
+]
 render._withStripped = true
 
 

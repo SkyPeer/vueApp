@@ -15,8 +15,8 @@
         data() {
             return {
                 currentPage: this.current || 1,
-                pageSize: 10,
-                //visiblePagesCount: 15
+                pageSize: 100,
+
             };
         },
         watch: {
@@ -25,7 +25,7 @@
             }
         },
         computed: {
-            pagesCount() {//сколько всего страниц возможно
+            pagesCount() {
                 console.log('pager this.total = ', this.total);
                 let count = Math.ceil(this.total / this.pageSize);
                 console.log('count = ', count);
