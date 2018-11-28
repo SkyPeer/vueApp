@@ -6,7 +6,7 @@
        </div>
 
 
-        <Pager :total='totalArray' :current='currentPage' @changePage="changePage"/>
+        <Pager :total='total' :current='currentPage' @changePage="changePage"/>
 
         <table class="paymentTable">
             <tbody class="paymentTable-body">
@@ -42,7 +42,7 @@
             return{
                 currentPage: 1,
                 search :'',
-                total : '',
+                /*total : '',*/
             }
         },
 
@@ -57,7 +57,7 @@
             //let {query} = this.$route;
             this.$store.dispatch('getUsers', {page: /*query.page ||*/ 1});
             this.currentPage = /*query.page ||*/ 1;
-            this.$store.dispatch('getTotal');
+            //this.$store.dispatch('getTotal');
         },
 
         watch: {
@@ -65,8 +65,8 @@
                 this.search.length !== 0 ?
                     this.$store.dispatch('getUsers',{page: 1, text: this.search}) : this.$store.dispatch('getUsers', {page: 1});
 
-                this.total = this.$store.dispatch('getTotal');
-
+                //this.total = this.$store.dispatch('getTotal');
+                this.currentPage = 1;
             }
 
         },
@@ -78,6 +78,7 @@
             }),
             ...mapState({
                 users: state => state.users,
+                total: state => state.total
             })
         }
     }

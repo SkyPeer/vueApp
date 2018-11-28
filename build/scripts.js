@@ -494,12 +494,13 @@ let userProvider = {
     async fetch(params) {
        //  params.text='y';
         let response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users/select', {params});
-        return response.data;
+        //console.log(response.data.users)
+        return response.data.users;
     },
-    async total() {
-        let response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users/total');
+    /*async total() {
+        let response = await axios.get('/api/users/total');
         return response.data;
-    },
+    },*/
 };
 
 
@@ -560,7 +561,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_0_
     let store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
 
             state: {
-                notes: [],
                 users: [],
                 total: 0,
             },
@@ -569,11 +569,13 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_0_
                     let users = await _providers__WEBPACK_IMPORTED_MODULE_2__["userProvider"].fetch(params);
                     commit('CHANGE_USERS', users);
                 },
-                async getTotal({commit, state}){
-                    let total = await _providers__WEBPACK_IMPORTED_MODULE_2__["userProvider"].total();
+
+
+                /*async getTotal({commit, state}){
+                    let total = await userProvider.total();
                     console.log('total raws:', total.total);
                     commit('CHANGE_TOTAL', total);
-                }
+                }*/
 
 
             },
@@ -581,25 +583,18 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_0_
                 ADD_NOTE(state, note) {
                     state.notes.push(note)
                 },
-                CHANGE_USERS(state, users) {
-                    state.users = users;
+                CHANGE_USERS(state, users, total) {
+                    state.users = users.users;
+                    state.total = users.total
                 },
-                CHANGE_TOTAL(state, total){
+                /*CHANGE_TOTAL(state, total){
                     state.total = total.total;
-                }
+                }*/
             },
             getters: {
-                notes(state) {
-                    return state.notes
-                },
-                stateCounter(state){
-                    return state.stateCounter
-                },
                 getTotal(state){
                     return state.total
                 }
-
-
             },
 
             modules: {}
@@ -3158,7 +3153,7 @@ __webpack_require__.r(__webpack_exports__);
         return{
             currentPage: 1,
             search :'',
-            total : '',
+            /*total : '',*/
         }
     },
 
@@ -3173,7 +3168,7 @@ __webpack_require__.r(__webpack_exports__);
         //let {query} = this.$route;
         this.$store.dispatch('getUsers', {page: /*query.page ||*/ 1});
         this.currentPage = /*query.page ||*/ 1;
-        this.$store.dispatch('getTotal');
+        //this.$store.dispatch('getTotal');
     },
 
     watch: {
@@ -3181,8 +3176,8 @@ __webpack_require__.r(__webpack_exports__);
             this.search.length !== 0 ?
                 this.$store.dispatch('getUsers',{page: 1, text: this.search}) : this.$store.dispatch('getUsers', {page: 1});
 
-            this.total = this.$store.dispatch('getTotal');
-
+            //this.total = this.$store.dispatch('getTotal');
+            this.currentPage = 1;
         }
 
     },
@@ -3194,6 +3189,7 @@ __webpack_require__.r(__webpack_exports__);
         }),
         ...Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
             users: state => state.users,
+            total: state => state.total
         })
     }
 });
@@ -3441,7 +3437,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("Pager", {
-        attrs: { total: _vm.totalArray, current: _vm.currentPage },
+        attrs: { total: _vm.total, current: _vm.currentPage },
         on: { changePage: _vm.changePage }
       }),
       _vm._v(" "),
