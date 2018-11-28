@@ -6,15 +6,10 @@ let userProvider = {
         let response = await axios.post('/api/users/select', {params});
         return response.data;
     },
-    /*async search(params) {
-        let response = await axios.post('/api/users/search', {params});
-        return response.data;
-    },*/
     async total() {
         let response = await axios.get('/api/users/total');
         return response.data;
     },
-
 };
 
 export {userProvider}
