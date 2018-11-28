@@ -9,5 +9,3 @@ const app = new Vue({
     router,
     render: h => h(App)
 });
-
-//App.$mount('#root');

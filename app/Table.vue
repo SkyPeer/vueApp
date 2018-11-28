@@ -48,7 +48,7 @@
 
         methods: {
             changePage(page) {
-                console.log(page);
+                //console.log(page);
                 this.$store.dispatch('getUsers', {page: page, text: this.search.length !== 0 ? this.search : null});
                 this.currentPage = page;
             }

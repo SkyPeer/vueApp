@@ -405,8 +405,6 @@ const app = new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
     render: h => h(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"])
 });
 
-//App.$mount('#root');
-
 /***/ }),
 
 /***/ "./app/main.vue":
@@ -498,15 +496,10 @@ let userProvider = {
         let response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users/select', {params});
         return response.data;
     },
-    /*async search(params) {
-        let response = await axios.post('/api/users/search', {params});
-        return response.data;
-    },*/
     async total() {
         let response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users/total');
         return response.data;
     },
-
 };
 
 
@@ -565,46 +558,21 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_0__["default"]);
     let store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
-       /*state:{
-           myCounter: 777,
-       },
-        mutations: {
-            increment(state) {
-                // изменяем состояние
-                state.myCounter++;
-            }
-        },
-        actions: {
-           setMyCounter({commit, state}){
-               commit('increment', true)
-           },
-            testAction(){
-               console.log('testActioninStore', arguments)
-            }
-        }*/
+
             state: {
                 notes: [],
                 users: [],
                 total: 0,
-                stateCounter: 777,
             },
             actions: {
-                /*addNote({commit}, note) {
-                    console.log('actions.note = ', note);
-                    commit('ADD_NOTE', note)
-                },*/
-                /*increaseCounter({commit}){
-                  commit('INCREASE_COUNTER')
-                },*/
                 async getUsers({commit, state}, params) {
                     let users = await _providers__WEBPACK_IMPORTED_MODULE_2__["userProvider"].fetch(params);
                     commit('CHANGE_USERS', users);
                 },
                 async getTotal({commit, state}){
                     let total = await _providers__WEBPACK_IMPORTED_MODULE_2__["userProvider"].total();
-                    console.log(total.total);
+                    console.log('total raws:', total.total);
                     commit('CHANGE_TOTAL', total);
-
                 }
 
 
@@ -612,9 +580,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_0_
             mutations: {
                 ADD_NOTE(state, note) {
                     state.notes.push(note)
-                },
-                INCREASE_COUNTER(state){
-                  state.stateCounter ++
                 },
                 CHANGE_USERS(state, users) {
                     state.users = users;
@@ -2976,9 +2941,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     computed: {
         pagesCount() {
-            console.log('pager this.total = ', this.total);
+            //console.log('pager this.total = ', this.total);
             let count = Math.ceil(this.total / this.pageSize);
-            console.log('count = ', count);
+            //console.log('count = ', count);
             return count || 1;
         },
     },
@@ -3115,6 +3080,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3185,7 +3164,7 @@ __webpack_require__.r(__webpack_exports__);
 
     methods: {
         changePage(page) {
-            console.log(page);
+            //console.log(page);
             this.$store.dispatch('getUsers', {page: page, text: this.search.length !== 0 ? this.search : null});
             this.currentPage = page;
         }
@@ -3270,7 +3249,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("Footer")])
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -3381,9 +3360,29 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("h1", [_vm._v("Hello world")]),
+      _c("h1", [_vm._v("Lorem ipsum")]),
       _vm._v(" "),
-      _c("div", [_vm._v("Lorem")])
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, vis ut quaestio praesent posidonium. His at mollis cotidieque, blandit ponderum assueverit eum eu. Ius sonet nonumes ad, noluisse rationibus ullamcorper has eu. Nec te facilis interpretaris, ut elit adipisci sit. Ei est mollis praesent.\n\n         Ius iusto causae at. Facer meliore ei eam. Aliquam appareat ad quo. Posse ridens ad sit, te dolore doctus integre sea, pro ceteros elaboraret ei. Dicta petentium in usu, harum meliore delectus in vel. Eu pri dicant iuvaret periculis, pro et minimum praesent accusamus, ea sed minimum praesent assueverit.\n\n         Has soleat ceteros deterruisset at, in pri choro constituto, duo id ceteros dissentiunt. Per et facete sensibus. Has eu persecuti reprehendunt. Nam putent putant minimum ut. Vituperata efficiendi cu cum.\nIus sumo diam nulla eu. Posse liber temporibus id mea, dicant discere lucilius has id, et aeque dignissim torquatos quo. Sed perfecto phaedrum cu, nisl mutat duo eu. Lorem animal mei te."
+        )
+      ]),
+      _vm._v(" "),
+      _c("h4", [_vm._v("Stack:")]),
+      _vm._v(" "),
+      _c("ul", [
+        _c("li", [_vm._v("Vue")]),
+        _vm._v(" "),
+        _c("li", [_vm._v("Vuex")]),
+        _vm._v(" "),
+        _c("li", [_vm._v("Vue-router")]),
+        _vm._v(" "),
+        _c("li", [_vm._v("nodejs")]),
+        _vm._v(" "),
+        _c("li", [_vm._v("express")]),
+        _vm._v(" "),
+        _c("li", [_vm._v("webpack")])
+      ])
     ])
   }
 ]

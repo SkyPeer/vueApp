@@ -26,9 +26,9 @@
         },
         computed: {
             pagesCount() {
-                console.log('pager this.total = ', this.total);
+                //console.log('pager this.total = ', this.total);
                 let count = Math.ceil(this.total / this.pageSize);
-                console.log('count = ', count);
+                //console.log('count = ', count);
                 return count || 1;
             },
         },
