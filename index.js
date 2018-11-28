@@ -23,15 +23,22 @@ app.post('/api/users/select', bodyParser.json(), function (req, res, next) {
     //res.header('Access-Control-Allow-Origin', '*');
 
 });
+let filtered = [] ;
 
 function getRequest(page, text) {
-    let filtered ;
+
+
     if (text) {
-        text = text.toLowerCase();
+        /*text = text.toLowerCase();
         filtered = jsonArray.filter(item => {
 
             return !item.email.toLowerCase().indexOf(text) || !item.name.toLowerCase().indexOf(text)
+        })*/
+        let pattern = new RegExp(text, 'i');
+        filtered = jsonArray.filter(item => {
+            return item.name.match(pattern) || item.email.match(pattern)
         })
+
     }
     else{
         filtered = jsonArray;
@@ -42,7 +49,7 @@ function getRequest(page, text) {
 }
 
 app.get('/api/users/total', function (req, res, next) {
-    res.json({total: jsonArray.length});
+    res.json({total: filtered.length});
 });
 
 
