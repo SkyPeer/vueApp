@@ -17,14 +17,14 @@ let jsonArray = require("./bigData.json");
 
 app.post('/api/users/select', bodyParser.json(), function (req, res, next) {
     let {page, text} = req.body.params;
-    res.json(getRequest(page, text))
+    res.json({users: getRequest(page, text)})
     //res.header('Access-Control-Allow-Origin', '*');
 
 });
 let filtered = [] ;
 
 function getRequest(page, text) {
-
+    let total;
     if (text) {
         let pattern = new RegExp(text, 'i');
         filtered = jsonArray.filter(item => {
@@ -37,12 +37,13 @@ function getRequest(page, text) {
     }
     let begin = (page - 1) * 100;
     let end = begin + 100;
-    return filtered.slice(begin, end);
+    total = filtered.length;
+    return {users: filtered.slice(begin, end), total: total}
 }
 
-app.get('/api/users/total', function (req, res, next) {
+/*app.get('/api/users/total', function (req, res, next) {
     res.json({total: filtered.length});
-});
+});*/
 
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
