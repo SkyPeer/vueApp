@@ -1,21 +1,27 @@
 <template>
-    <div>
-       <input placeholder="Поиск..." v-model="search"/>
-        <label v-if="search.length > 0">Найдено: {{totalArray}} строк</label>
+    <div class="tableComponent">
+       <div class="search">
+            <input placeholder="Поиск..." v-model="search"/>
+            <label class="count" v-if="search.length > 0">Найдено: {{totalArray}} строк</label>
+       </div>
+
+
+        <Pager :total='totalArray' :current='currentPage' @changePage="changePage"/>
+
         <table class="paymentTable">
-            <tbody>
+            <tbody class="paymentTable-body">
             <tr>
-                <th>Id</th>
+                <th>Id:</th>
                 <th>Имя: </th>
                 <th>Email: </th>
                 <th>Платеж: </th>
-                <th>Язый прог.</th>
+                <th>Язый прог.:</th>
             </tr>
-            <tr class="userTable" v-for="user in users">
+            <tr class="payment" v-for="user in users">
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
-                <td>{{user.email}}</td>
-                <td>$ {{user.payment}}</td>
+                <td class="email">{{user.email}}</td>
+                <td :class="user.payment > 140 ? 'alert' : ''">$ {{user.payment}}</td>
                 <td>{{user.language}}</td>
             </tr>
             </tbody>

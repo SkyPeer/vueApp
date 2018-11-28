@@ -3115,7 +3115,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3136,6 +3135,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pager__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pager */ "./app/Pager.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3405,47 +3410,62 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "tableComponent" },
     [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.search,
-            expression: "search"
-          }
-        ],
-        attrs: { placeholder: "Поиск..." },
-        domProps: { value: _vm.search },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _c("div", { staticClass: "search" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.search,
+              expression: "search"
             }
-            _vm.search = $event.target.value
+          ],
+          attrs: { placeholder: "Поиск..." },
+          domProps: { value: _vm.search },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.search = $event.target.value
+            }
           }
-        }
-      }),
+        }),
+        _vm._v(" "),
+        _vm.search.length > 0
+          ? _c("label", { staticClass: "count" }, [
+              _vm._v("Найдено: " + _vm._s(_vm.totalArray) + " строк")
+            ])
+          : _vm._e()
+      ]),
       _vm._v(" "),
-      _vm.search.length > 0
-        ? _c("label", [_vm._v("Найдено: " + _vm._s(_vm.totalArray) + " строк")])
-        : _vm._e(),
+      _c("Pager", {
+        attrs: { total: _vm.totalArray, current: _vm.currentPage },
+        on: { changePage: _vm.changePage }
+      }),
       _vm._v(" "),
       _c("table", { staticClass: "paymentTable" }, [
         _c(
           "tbody",
+          { staticClass: "paymentTable-body" },
           [
             _vm._m(0),
             _vm._v(" "),
             _vm._l(_vm.users, function(user) {
-              return _c("tr", { staticClass: "userTable" }, [
+              return _c("tr", { staticClass: "payment" }, [
                 _c("td", [_vm._v(_vm._s(user.id))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(user.name))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(user.email))]),
+                _c("td", { staticClass: "email" }, [
+                  _vm._v(_vm._s(user.email))
+                ]),
                 _vm._v(" "),
-                _c("td", [_vm._v("$ " + _vm._s(user.payment))]),
+                _c("td", { class: user.payment > 140 ? "alert" : "" }, [
+                  _vm._v("$ " + _vm._s(user.payment))
+                ]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(user.language))])
               ])
@@ -3469,7 +3489,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("th", [_vm._v("Id")]),
+      _c("th", [_vm._v("Id:")]),
       _vm._v(" "),
       _c("th", [_vm._v("Имя: ")]),
       _vm._v(" "),
@@ -3477,7 +3497,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Платеж: ")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Язый прог.")])
+      _c("th", [_vm._v("Язый прог.:")])
     ])
   }
 ]
