@@ -3431,7 +3431,7 @@ var render = function() {
         _vm._v(" "),
         _vm.search.length > 0
           ? _c("label", { staticClass: "count" }, [
-              _vm._v("Найдено: " + _vm._s(_vm.totalArray) + " строк")
+              _vm._v("Найдено: " + _vm._s(_vm.total) + " строк")
             ])
           : _vm._e()
       ]),
@@ -3471,7 +3471,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("Pager", {
-        attrs: { total: _vm.totalArray, current: _vm.currentPage },
+        attrs: { total: _vm.total, current: _vm.currentPage },
         on: { changePage: _vm.changePage }
       })
     ],

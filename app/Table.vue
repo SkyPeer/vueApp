@@ -2,7 +2,7 @@
     <div class="tableComponent">
        <div class="search">
             <input placeholder="Поиск..." v-model="search"/>
-            <label class="count" v-if="search.length > 0">Найдено: {{totalArray}} строк</label>
+            <label class="count" v-if="search.length > 0">Найдено: {{total}} строк</label>
        </div>
 
 
@@ -26,7 +26,7 @@
             </tr>
             </tbody>
         </table>
-        <Pager :total='totalArray' :current='currentPage' @changePage="changePage"/>
+        <Pager :total='total' :current='currentPage' @changePage="changePage"/>
     </div>
 </template>
 
